@@ -147,7 +147,27 @@ install_snell() {
     fi
 
     # 创建配置文件目录
-    mkdir -p ${CONF_DIR}
+
+
+if [ ! -f "$CONF_FILE" ]; then
+    echo "配置文件不存在，正在生成..."
+    
+    # 使用 cat > ${CONF_FILE} << EOF 写入配置文件内容
+    cat > "${CONF_FILE}" << EOF
+# 配置文件示例
+setting1: value1
+setting2: value2
+setting3: value3
+EOF
+
+    echo "配置文件已生成。"
+else
+    echo "配置文件已存在，不需要重新生成。"
+fi
+
+# 你的脚本逻辑
+echo "运行脚本的其他功能..."
+  
 
     # 创建配置文件
     cat > ${CONF_FILE} << EOF
@@ -213,15 +233,6 @@ EOF
     echo "${IP_COUNTRY} = snell, ${HOST_IP}, ${RANDOM_PORT}, psk = ${RANDOM_PSK}, version = 4, reuse = true"
     echo "$(date '+%Y-%m-%d %H:%M:%S') - Snell 安装成功: ${IP_COUNTRY}, ${HOST_IP}, ${RANDOM_PORT}, psk=${RANDOM_PSK}" >> "$LOG_FILE"
 
-#!/bin/bash
-
-CONF_DIR="/etc/snell"
-CONF_FILE="${CONF_DIR}/snell-server.conf"
-LOCAL_SNELL_PATH="/usr/local/bin/snell"  # snell 命令路径
-
-# 创建配置文件目录
-mkdir -p "${CONF_DIR}"
-
 # 检查脚本是否已经移动并设置为 snell
 if [ ! -f "$LOCAL_SNELL_PATH" ]; then
     echo "正在设置快捷命令 'snell'..."
@@ -237,27 +248,7 @@ if [ ! -f "$LOCAL_SNELL_PATH" ]; then
     
     echo "'snell' 命令已设置，您可以通过 'snell' 来启动这个脚本。"
     exit 0
-fi
 
-# 检查配置文件是否存在
-if [ ! -f "$CONF_FILE" ]; then
-    echo "配置文件不存在，正在生成..."
-    
-    # 使用 cat > ${CONF_FILE} << EOF 写入配置文件内容
-    cat > "${CONF_FILE}" << EOF
-# 配置文件示例
-setting1: value1
-setting2: value2
-setting3: value3
-EOF
-
-    echo "配置文件已生成。"
-else
-    echo "配置文件已存在，不需要重新生成。"
-fi
-
-# 你的脚本逻辑
-echo "运行脚本的其他功能..."
 
 
 }
