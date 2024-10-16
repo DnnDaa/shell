@@ -1,5 +1,26 @@
 #!/bin/bash
+# 检查脚本是否已经移动
+if [ ! -f /usr/local/bin/snell ]; then
+    # 提示并复制脚本到 /usr/local/bin，并命名为 snell
+    echo "正在设置快捷命令 'snell'..."
+    
+    # 获取当前脚本路径
+    SCRIPT_PATH=$(realpath "$0")
+    
+    # 将当前脚本复制到 /usr/local/bin
+    sudo cp "$SCRIPT_PATH" /usr/local/bin/snell
+    
+    # 赋予执行权限
+    sudo chmod +x /usr/local/bin/snell
+    
+    echo "'snell' 命令已设置，您可以通过 'snell' 来启动这个脚本。"
+    exit 0
+else
+    echo "'snell' 命令已经存在，现在继续运行脚本..."
+fi
 
+# 你的脚本逻辑
+echo "运行脚本的其他功能..."
 # 定义颜色代码
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -214,28 +235,7 @@ EOF
     echo "${IP_COUNTRY} = snell, ${HOST_IP}, ${RANDOM_PORT}, psk = ${RANDOM_PSK}, version = 4, reuse = true"
     echo "$(date '+%Y-%m-%d %H:%M:%S') - Snell 安装成功: ${IP_COUNTRY}, ${HOST_IP}, ${RANDOM_PORT}, psk=${RANDOM_PSK}" >> "$LOG_FILE"
 
-# 检查脚本是否已经移动
-if [ ! -f /usr/local/bin/snell ]; then
-    # 提示并复制脚本到 /usr/local/bin，并命名为 snell
-    echo "正在设置快捷命令 'snell'..."
-    
-    # 获取当前脚本路径
-    SCRIPT_PATH=$(realpath "$0")
-    
-    # 将当前脚本复制到 /usr/local/bin
-    sudo cp "$SCRIPT_PATH" /usr/local/bin/snell
-    
-    # 赋予执行权限
-    sudo chmod +x /usr/local/bin/snell
-    
-    echo "'snell' 命令已设置，您可以通过 'snell' 来启动这个脚本。"
-    exit 0
-else
-    echo "'snell' 命令已经存在，现在继续运行脚本..."
-fi
 
-# 你的脚本逻辑
-echo "运行脚本的其他功能..."
 
 }
 
