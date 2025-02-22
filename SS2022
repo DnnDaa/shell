@@ -334,7 +334,6 @@ EOF
     password: ${password}
     alpn:
       - h3
-    sni: www.bing.com
     skip-cert-verify: true
     fast-open: true
 
@@ -374,7 +373,7 @@ EOF
         echo
         echo "hy2://${password}@${host_ip}:${hport}?insecure=1&sni=www.bing.com#${ip_country}"
         echo
-        echo "${ip_country} = hysteria2, ${host_ip}, ${hport}, password = ${password}, skip-cert-verify=true, sni=www.bing.com"
+        echo "${ip_country} = hysteria2, ${host_ip}, ${hport}, password = ${password}, skip-cert-verify=true"
         echo
         echo "${ip_country} = ss, ${host_ip}, ${sport}, encrypt-method=2022-blake3-aes-128-gcm, password=${ss_password}, shadow-tls-password=${password}, shadow-tls-sni=www.bing.com, shadow-tls-version=3, udp-relay=true"
         echo 
